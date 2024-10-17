@@ -3,33 +3,27 @@ package ru.digitalchef.elastic.service;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.IndexRequest;
 import co.elastic.clients.elasticsearch.core.IndexResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.digitalchef.elastic.entity.Product;
 import ru.digitalchef.elastic.repository.ProductRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ElasticsearchSyncService {
-
-    private final ElasticsearchClient elasticsearchClient;
-    private final ProductRepository productRepository;
+public class DataLoadService {
 
     @Autowired
-    public ElasticsearchSyncService(ElasticsearchClient elasticsearchClient, ProductRepository productRepository) {
-        this.elasticsearchClient = elasticsearchClient;
-        this.productRepository = productRepository;
-    }
+    private ElasticsearchClient elasticsearchClient;
 
-    public List<Product> getProducts() {
-        return productRepository.findByInSale(true);
-    }
+    @Autowired
+    private ProductRepository productRepository;
 
-    public void syncData() throws IOException {
-        List<Product> products = productRepository.findByInSale(true);
+
+    public void loadDataToElasticsearch() throws IOException {
+        List<Product> products = productRepository.findAll();
 
         for (Product product : products) {
             IndexRequest<Product> request = IndexRequest.of(i -> i
@@ -37,11 +31,8 @@ public class ElasticsearchSyncService {
                     .id(product.getId().toString())
                     .document(product)
             );
-
-            // Execute the indexing request
             IndexResponse response = elasticsearchClient.index(request);
-            System.out.println("Indexed document with ID: " + response.id());
+            System.out.println("Indexed product: " + response.id());
         }
     }
 }
-

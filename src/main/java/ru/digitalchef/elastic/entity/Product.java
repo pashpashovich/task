@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,7 +31,7 @@ public class Product {
     private Boolean inSale;
     private int quantity;
     @Column(name = "date_of_creation")
-    private LocalDate dateOfCreation;
+    private Date dateOfCreation;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Sku> skus;
 
