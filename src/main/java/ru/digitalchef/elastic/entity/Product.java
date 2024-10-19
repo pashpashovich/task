@@ -11,6 +11,7 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.List;
 @Entity
 @Accessors(chain = true)
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
