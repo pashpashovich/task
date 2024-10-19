@@ -22,14 +22,12 @@ wrapper {
 
 dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.30'
 
     implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.23'
     implementation 'org.springframework:spring-web:6.1.12'
-    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web:3.3.3'
     implementation 'org.postgresql:postgresql:42.7.3'
